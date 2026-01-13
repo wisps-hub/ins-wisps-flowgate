@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  monitorInterval 秒级热加载，改配置免重启  -->
+<Configuration status="WARN" monitorInterval="30">
+
+    <!-- ================== 外部变量 ================== -->
+    <!-- 日志级别：TRACE < DEBUG < INFO < WARN < ERROR < FATAL -->
+    <Properties>
+        <!-- 日志文件输出目录：项目根目录下的 logs 文件夹 -->
+        <Property name="LOG_HOME">logs</Property>
+        <Property name="FILE_NAME">ins-wisps-gate-core</Property>
+        <!--  trace 格式  -->
+        <Property name="traceLayout">%m%n</Property>
+        <!-- 单行文本格式  -->
+        <Property name="patternLayout">
+            [%d{yyyy-MM-dd'T'HH:mm:ss.SSSZZ}] [%level{length=5}] [%thread-%tid] [%logger] [%X{hostName}] - %msg%throwable{10}
+        </Property>
+    </Properties>
+
+
+    <Appenders>
+        <!-- 控制台 -->
+        <Console name="CONSOLE" target="SYSTEM_OUT">
+            <PatternLayout pattern="${patternLayout}"/>
+        </Console>
+
+        <!-- 滚动文件 -->
+        <RollingRandomAccessFile name="RandomAccessFile" fileName="${LOG_HOME}/app-${FILE_NAME}.log" filePattern="${LOG_HOME}/app-${FILE_NAME}-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout pattern="${patternLayout}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="500 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingRandomAccessFile>
+
+        <!-- 异步包装 -->
+        <Async name="Async" shutdownTimeout="10000">
+            <AppenderRef ref="CONSOLE"/>
+            <AppenderRef ref="RandomAccessFile"/>
+        </Async>
+    </Appenders>
+
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="CONSOLE"/>
+            <!--<AppenderRef ref="RandomAccessFile"/>-->
+        </Root>
+
+        <Logger name="com.wisps.flowgate.core.*" level="info" includeLocation="true">
+            <AppenderRef ref="RandomAccessFile"/>
+        </Logger>
+
+        <!-- 第三方库降噪 -->
+        <Logger name="org.springframework" level="INFO"/>
+        <Logger name="io.netty" level="INFO"/>
+    </Loggers>
+</Configuration>

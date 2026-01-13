@@ -1,0 +1,42 @@
+package com.wisps.flowgate.core;
+
+import com.wisps.flowgate.common.consts.BaseConst;
+import com.wisps.flowgate.common.utils.NetUtil;
+
+public class FlowGateConfig {
+    /** 服务端口 */
+    private int port = 8888;
+    /** 服务端口 */
+    private String flowGateId = NetUtil.getLocalIp() + BaseConst.COLON_SEPARATOR + port;
+    /** 网关的注册中心地址 */
+    private String registerAddress = "http://127.0.0.1:2379,http://127.0.0.1:2379,http://127.0.0.1:2379";
+    /** 网关的命名空间 */
+    private String nameSpace = "flowGate-dev";
+    /** 网关服务的CPU核数映射的线程数 */
+    private int processThread = Runtime.getRuntime().availableProcessors();
+    /** Netty的Boss线程数 */
+    private int eventLoopGroupBossCnt = 1;
+    /** Netty的Work线程数 */
+    private int eventLoopGroupWorkCnt = processThread;
+    /** 是否开启EPOLL */
+    private boolean useEpoll = true;
+    /** 是否开启Netty的内存分配机制 */
+    private boolean nettyAllocator = true;
+    /** http body 报文最大大小 64M*/
+    private int maxCountLength = 1024 * 1024 * 64;
+    /** httpAsync 参数选项*/
+
+    /** dubbo 开启链接数数量*/
+    private int dubboConnections = processThread;
+    /** 设置响应模式 默认单异步模式；CompletableFuture回调处理结果：WhenComplete or WhenCompleteAsync */
+    private boolean whenComplete = true;
+
+    /** 网关队列-缓冲模式 */
+    private String bufferType = FlowGateBufferHelper.FLUSHER;
+    /** 网关队列-内存大小 */
+    private int bufferSize = 1024 * 16;
+    /** 网关队列-阻塞策略 */
+    private String waitStrategy = "blocking";
+
+    /** todo http async 参数 */
+}
