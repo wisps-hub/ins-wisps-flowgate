@@ -2,7 +2,9 @@ package com.wisps.flowgate.core;
 
 import com.wisps.flowgate.common.consts.BaseConst;
 import com.wisps.flowgate.common.utils.NetUtil;
+import lombok.Data;
 
+@Data
 public class FlowGateConfig {
     /** 服务端口 */
     private int port = 8888;

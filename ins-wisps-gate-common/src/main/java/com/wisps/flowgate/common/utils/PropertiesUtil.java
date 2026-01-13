@@ -8,7 +8,7 @@ public class PropertiesUtil {
         prop2Object(props, object, "");
     }
 
-    private static void prop2Object(Properties props, Object object, String prefix) {
+    public static void prop2Object(Properties props, Object object, String prefix) {
         Method[] methods = object.getClass().getMethods();
         for (Method method : methods) {
             String methodName = method.getName();
