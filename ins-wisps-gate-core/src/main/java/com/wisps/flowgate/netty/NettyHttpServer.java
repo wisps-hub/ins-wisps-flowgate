@@ -1,5 +1,6 @@
 package com.wisps.flowgate.netty;
 
+import com.wisps.flowgate.common.utils.RemotingUtil;
 import com.wisps.flowgate.core.FlowGateConfig;
 import com.wisps.flowgate.core.LifeCycle;
 import io.netty.bootstrap.ServerBootstrap;
@@ -29,7 +30,7 @@ public class NettyHttpServer implements LifeCycle {
     }
 
     public boolean useEPoll(){
-        
+        return config.isUseEpoll() && RemotingUtil.isLinuxPlatform();
     }
 
     @Override
