@@ -2,6 +2,7 @@ package com.wisps.flowgate.core;
 
 import com.wisps.flowgate.common.consts.BaseConst;
 import com.wisps.flowgate.common.utils.NetUtil;
+import com.wisps.flowgate.helper.FlowGateBufferHelper;
 import lombok.Data;
 
 @Data
@@ -41,4 +42,16 @@ public class FlowGateConfig {
     private String waitStrategy = "blocking";
 
     /** todo http async 参数 */
+    /** 连接超时 默认30s*/
+    private int httpConnectTimeout = 30_000;
+    /** 请求超时 默认30s*/
+    private int httpRequestTimeout = 30_000;
+    /** 客户端最大请求重试次数 */
+    private int httpMaxRequestRetry = 2;
+    /** 客户端最大连接数 */
+    private int httpMaxConnections = 10000;
+    /** 客户端每个地址支持的最大连接数 */
+    private int httpMaxConnectionsPerHost = 8000;
+    /** 客户端空闲连接超时时间 默认60s */
+    private int httpPooledConnectionIdleTimeout = 60_000;
 }

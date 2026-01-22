@@ -1,4 +1,4 @@
-package com.wisps.flowgate.core;
+package com.wisps.flowgate.helper;
 
 public class FlowGateBufferHelper {
 

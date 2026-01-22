@@ -103,6 +103,10 @@ public class NettyHttpServer implements LifeCycle {
         }
     }
 
+    public EventLoopGroup getEventLoopGroupWork() {
+        return eventLoopGroupWork;
+    }
+
     public boolean useEPoll(){
         return config.isUseEpoll() && RemotingUtil.isLinuxPlatform() && Epoll.isAvailable();
     }
